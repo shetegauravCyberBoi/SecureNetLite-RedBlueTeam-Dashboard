@@ -1,0 +1,17 @@
+# Python
+venv/
+__pycache__/
+*.py[cod]
+
+# Backend uploads / runtime
+uploads/
+*.log
+
+# React
+fron/node_modules/
+fron/package-lock.json
+fron/build/
+fron/.env
+
+# OS
+.DS_Store
