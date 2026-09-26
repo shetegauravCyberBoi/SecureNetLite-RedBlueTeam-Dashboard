@@ -87,6 +87,14 @@ SecureNetLite is a full-stack security assessment tool that integrates multiple 
 
 ## 🏗️ Architecture
 
+
+<p align="center">
+  <img src="docs/screenshots/Flowchart.jpeg" width="800"/>
+</p>
+
+<details>
+<summary>Text-based diagram (fallback)</summary>
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                        FRONTEND (React)                      │
