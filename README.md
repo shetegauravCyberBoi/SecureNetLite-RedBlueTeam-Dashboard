@@ -44,6 +44,49 @@ SecureNetLite is a full-stack security assessment tool that integrates multiple 
 
 ---
 
+## 📸 Screenshots
+
+<table>
+  <tr>
+    <td width="50%">
+      <img src="docs/screenshots/UI-Home.png" width="100%"/>
+      <p align="center"><sub><b>Home Page</b></sub></p>
+    </td>
+    <td width="50%">
+      <img src="docs/screenshots/UI-Home2.png" width="100%"/>
+      <p align="center"><sub><b>Home Page — Feature Overview</b></sub></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <img src="docs/screenshots/RedTeam.png" width="100%"/>
+      <p align="center"><sub><b>Red Team — Attack Tools</b></sub></p>
+    </td>
+    <td width="50%">
+      <img src="docs/screenshots/BlueTeam.png" width="100%"/>
+      <p align="center"><sub><b>Blue Team — Digital Forensics</b></sub></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <img src="docs/screenshots/Zap-Scan.png" width="100%"/>
+      <p align="center"><sub><b>OWASP ZAP Web Scan</b></sub></p>
+    </td>
+    <td width="50%">
+      <img src="docs/screenshots/Fuzzing.png" width="100%"/>
+      <p align="center"><sub><b>FFUF Fuzzing / Enumeration</b></sub></p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <img src="docs/screenshots/CSRFgen.png" width="100%"/>
+      <p align="center"><sub><b>CSRF PoC Generator</b></sub></p>
+    </td>
+    <td width="50%"></td>
+  </tr>
+</table>
+
+
 ## ✨ Features
 
 ### Backend Capabilities
