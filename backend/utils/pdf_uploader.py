@@ -4,7 +4,6 @@ from db.mongo import get_pdf_fs
 from bson import ObjectId
 from datetime import datetime
 
-
 def upload_pdf_to_mongodb(
     file_path: str,
     filename: str,
@@ -12,7 +11,6 @@ def upload_pdf_to_mongodb(
     scan_type: str
 ) -> ObjectId:
     fs = get_pdf_fs()
-
     with open(file_path, "rb") as pdf:
         file_id = fs.put(
             pdf,
@@ -23,5 +21,4 @@ def upload_pdf_to_mongodb(
                 "uploaded_at": datetime.utcnow(),
             },
         )
-
     return file_id

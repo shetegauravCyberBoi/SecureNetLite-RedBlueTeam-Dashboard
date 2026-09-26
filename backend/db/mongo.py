@@ -2,8 +2,9 @@ from pymongo import MongoClient
 from gridfs import GridFS
 import os
 
-URI = "mongodb+srv://myadmin1:mongo4486@netguard.arzof6b.mongodb.net/?appName=netguard"
-MONGO_URI = os.getenv("MONGO_URI", URI)
+MONGO_URI = os.getenv("MONGO_URI")
+if not MONGO_URI:
+    raise RuntimeError("MONGO_URI is not configured")
 client = MongoClient(MONGO_URI)
 secure_net_db = client["SecureNetLite"]
 user_collection = secure_net_db["users"]

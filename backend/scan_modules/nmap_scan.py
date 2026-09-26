@@ -10,10 +10,8 @@ def run_nmap(target_ip):
             ['nmap', '-sV', '-O', target_ip],
             stderr=subprocess.STDOUT
         ).decode('utf-8')
-
         parsed_result = parse_nmap_output(result)
         return parsed_result
-
     except subprocess.CalledProcessError as e:
         print("[-] Nmap Error:", e.output.decode())
         return {"error": e.output.decode()}
@@ -24,11 +22,8 @@ def parse_nmap_output(output):
         "os": "Unknown",
         "banner": "Unknown"
     }
-
     banner_lines = []
-
     for line in output.splitlines():
-        # Ports
         if re.match(r"^\d+/tcp\s+open", line):
             parts = line.split()
             port = parts[0]
@@ -39,11 +34,8 @@ def parse_nmap_output(output):
                 "state": "open"
             })
             banner_lines.append(line)
-
-        # OS detection
         if "OS details" in line or "Running:" in line:
             parsed["os"] = line.split(":", 1)[-1].strip()
-
     parsed["banner"] = "\n".join(banner_lines[:5]) or "No banner info"
     return parsed
 

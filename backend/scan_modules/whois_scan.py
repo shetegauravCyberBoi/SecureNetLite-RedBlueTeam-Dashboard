@@ -6,8 +6,6 @@ def run_whois(target):
     try:
         result = subprocess.check_output(['whois', target], stderr=subprocess.DEVNULL).decode('utf-8')
         data = {}
-
-        # Extract key fields
         for line in result.splitlines():
             if ":" in line:
                 key, val = line.split(":", 1)

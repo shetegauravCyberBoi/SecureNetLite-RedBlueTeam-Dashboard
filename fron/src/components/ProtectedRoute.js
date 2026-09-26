@@ -6,8 +6,8 @@ export default function ProtectedRoute({ children }) {
   const { token } = useAuth();
 
   if (!token) {
-    alert("Please login to use this tool.");
-    return <Navigate to="/login" />;
+    // Redirect to homepage instead of showing alert or login page
+    return <Navigate to="/" replace />;
   }
 
   return children;

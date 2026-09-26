@@ -1,7 +1,10 @@
+import os
 # shodan_scan.py
 import shodan
 
-SHODAN_API_KEY = "TFHBMtRfm6Oat9e7GfZTnYwxVEwYMkgD"
+SHODAN_API_KEY = os.getenv("SHODAN_API_KEY")
+if not SHODAN_API_KEY:
+    raise RuntimeError("SHODAN_API_KEY is not configured")
 
 def run_shodan(target):
     api = shodan.Shodan(SHODAN_API_KEY)

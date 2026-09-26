@@ -7,9 +7,6 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  /* =============================
-     Load auth state on app start
-     ============================= */
   useEffect(() => {
     try {
       const savedToken = localStorage.getItem("token");
@@ -18,49 +15,32 @@ export const AuthProvider = ({ children }) => {
       if (savedToken && savedUser) {
         setToken(savedToken);
         setUser(JSON.parse(savedUser));
-      } else {
-        // Incomplete auth state → reset
-        localStorage.clear();
       }
     } catch (err) {
-      // Corrupted localStorage → reset
       console.error("Auth storage corrupted, resetting", err);
-      localStorage.clear();
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
     } finally {
       setLoading(false);
     }
   }, []);
 
-  /* =============================
-     Login
-     ============================= */
   const login = (data) => {
-    /*
-      🔥 CRITICAL FIX
-      Clear any previous user/session data
-      to prevent token/user mismatch
-    */
-    localStorage.clear();
-
     localStorage.setItem("token", data.access_token);
     localStorage.setItem("user", JSON.stringify(data.user));
-
     setToken(data.access_token);
     setUser(data.user);
   };
 
-  /* =============================
-     Logout
-     ============================= */
   const logout = () => {
-    localStorage.clear();
+    // ✅ Only remove auth-related keys to prevent popup
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
     setToken(null);
     setUser(null);
   };
 
-  /* =============================
-     Context Provider
-     ============================= */
   return (
     <AuthContext.Provider
       value={{

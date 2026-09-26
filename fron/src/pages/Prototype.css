@@ -1,0 +1,633 @@
+/* ═══════════════════════════════════════════════════════════
+   GOOGLE FONTS
+═══════════════════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;600;700;900&display=swap');
+
+/* ═══════════════════════════════════════════════════════════
+   SCOPED ROOT  (.snl = SecureNetLite namespace)
+   All selectors prefixed so they never bleed into App styles
+═══════════════════════════════════════════════════════════ */
+.snl {
+  --bg:        #020409;
+  --bg2:       #060b14;
+  --bg3:       #0a1020;
+  --border:    rgba(255,255,255,0.07);
+  --border2:   rgba(255,255,255,0.12);
+  --red:       #ff2d3a;
+  --red-dim:   rgba(255,45,58,0.15);
+  --red-glow:  rgba(255,45,58,0.35);
+  --blue:      #00d4ff;
+  --blue-dim:  rgba(0,212,255,0.12);
+  --blue-glow: rgba(0,212,255,0.35);
+  --green:     #00ff88;
+  --yellow:    #ffd700;
+  --muted:     #3a4458;
+  --text:      #8fa0b8;
+  --text2:     #c5d0de;
+  --white:     #e8f0f8;
+  --font-mono: 'Share Tech Mono', monospace;
+  --font-ui:   'Rajdhani', sans-serif;
+  --font-hdr:  'Orbitron', monospace;
+
+  background: var(--bg);
+  color: var(--text2);
+  font-family: var(--font-ui);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* scanline overlay */
+.snl::before {
+  content: '';
+  position: fixed; inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent, transparent 2px,
+    rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* corner ambient glow */
+.snl::after {
+  content: '';
+  position: fixed;
+  top: 0; right: 0;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle at top right, rgba(255,45,58,0.06), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── TOPBAR ─────────────────────────────────────── */
+.snl-topbar {
+  position: sticky; top: 0; z-index: 500;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 2rem;
+  height: 56px;
+  background: rgba(2,4,9,0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.snl-logo {
+  font-family: var(--font-hdr);
+  font-size: 0.85rem; font-weight: 700;
+  letter-spacing: 0.15em; color: var(--white);
+  display: flex; align-items: center; gap: 0.8rem;
+}
+.snl-logo-badge {
+  display: flex; align-items: center; gap: 0.4rem;
+  background: rgba(0,255,136,0.08);
+  border: 1px solid rgba(0,255,136,0.2);
+  border-radius: 4px; padding: 2px 8px;
+  font-size: 0.65rem; color: var(--green); letter-spacing: 0.1em;
+}
+.snl-live-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px var(--green);
+  animation: snl-pulse-dot 2s ease-in-out infinite;
+}
+@keyframes snl-pulse-dot {
+  0%,100% { opacity:1; box-shadow: 0 0 8px var(--green); }
+  50%      { opacity:0.4; box-shadow: 0 0 2px var(--green); }
+}
+
+.snl-topbar-center {
+  display: flex; align-items: center; gap: 2px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 6px; padding: 3px;
+}
+.snl-team-btn {
+  padding: 0.35rem 1.4rem;
+  border-radius: 4px; border: none;
+  font-family: var(--font-ui);
+  font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em;
+  cursor: pointer; transition: all 0.2s;
+  background: transparent; color: var(--muted);
+}
+.snl-team-btn:not(.active):hover { color: var(--text2); }
+.snl-team-btn.red.active  {
+  background: var(--red); color: #fff;
+  box-shadow: 0 0 20px var(--red-glow), inset 0 1px 0 rgba(255,255,255,0.2);
+}
+.snl-team-btn.blue.active {
+  background: var(--blue); color: #020409;
+  box-shadow: 0 0 20px var(--blue-glow), inset 0 1px 0 rgba(255,255,255,0.3);
+}
+
+.snl-topbar-right {
+  display: flex; align-items: center; gap: 1.2rem;
+  font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted);
+}
+.snl-op-label { color: var(--text); }
+.snl-op-user  { color: var(--white); }
+.snl-clock    { color: var(--yellow); letter-spacing: 0.05em; }
+
+/* ── KILL CHAIN ─────────────────────────────────── */
+.snl-killchain {
+  display: flex; align-items: center; gap: 0;
+  padding: 0 2rem; height: 40px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+}
+.snl-kc-step {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem; letter-spacing: 0.06em;
+  white-space: nowrap; color: var(--muted); padding: 0 0.3rem;
+  transition: color 0.2s;
+}
+.snl-kc-step.done   { color: var(--green); }
+.snl-kc-step.active { color: var(--yellow); }
+.snl-kc-arrow {
+  color: rgba(255,255,255,0.1); font-size: 0.65rem; padding: 0 0.3rem;
+}
+.snl-kc-num {
+  width: 18px; height: 18px; border-radius: 3px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.6rem; font-weight: 700;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid currentColor; opacity: 0.7;
+}
+.snl-kc-step.done .snl-kc-num   { background: rgba(0,255,136,0.15); }
+.snl-kc-step.active .snl-kc-num { background: rgba(255,215,0,0.15); }
+
+/* ── TABS BAR ───────────────────────────────────── */
+.snl-tabs-bar {
+  display: flex; align-items: flex-end;
+  padding: 0 2rem;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+}
+.snl-tab-btn {
+  display: flex; align-items: center; gap: 0.4rem;
+  padding: 0.75rem 1.3rem;
+  border: none; border-bottom: 2px solid transparent;
+  background: transparent;
+  font-family: var(--font-mono); font-size: 0.73rem;
+  letter-spacing: 0.05em; color: var(--muted);
+  cursor: pointer; white-space: nowrap; transition: all 0.2s;
+}
+.snl-tab-btn:hover { color: var(--text2); }
+.snl-tab-btn.active.red  { color: var(--red);  border-bottom-color: var(--red); }
+.snl-tab-btn.active.blue { color: var(--blue); border-bottom-color: var(--blue); }
+.snl-tab-count {
+  font-size: 0.6rem; padding: 1px 5px; border-radius: 3px;
+  background: rgba(255,255,255,0.07); color: var(--muted);
+}
+.snl-tab-btn.active .snl-tab-count {
+  background: rgba(255,255,255,0.12); color: var(--text2);
+}
+
+/* ── LAYOUT ─────────────────────────────────────── */
+.snl-content {
+  padding: 1.8rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative; z-index: 1;
+}
+
+.snl-section-hdr { margin-bottom: 1.6rem; }
+.snl-section-hdr h2 {
+  font-family: var(--font-hdr);
+  font-size: 1.2rem; font-weight: 700;
+  letter-spacing: 0.06em; color: var(--white); margin-bottom: 0.4rem;
+}
+.snl-section-hdr p {
+  font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted);
+}
+
+.snl-accent-red    { color: var(--red); }
+.snl-accent-blue   { color: var(--blue); }
+.snl-accent-green  { color: var(--green); }
+.snl-accent-yellow { color: var(--yellow); }
+
+.snl-grid-3 {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem;
+}
+.snl-grid-2 {
+  display: grid; grid-template-columns: repeat(2,1fr); gap: 1.2rem;
+}
+.snl-grid-auto {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px,1fr));
+  gap: 1.2rem;
+}
+.snl-col-span-2 { grid-column: span 2; }
+
+@media (max-width:1100px) { .snl-grid-3 { grid-template-columns: repeat(2,1fr); } }
+@media (max-width:780px)  {
+  .snl-grid-3,.snl-grid-2,.snl-grid-auto { grid-template-columns: 1fr; }
+  .snl-col-span-2 { grid-column: span 1; }
+}
+
+/* ── PANEL CARD ─────────────────────────────────── */
+.snl-panel {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  transition: border-color 0.25s, box-shadow 0.25s;
+  position: relative;
+}
+.snl-panel::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent);
+  opacity: 0; transition: opacity 0.3s;
+}
+.snl-panel:hover { border-color: var(--border2); }
+.snl-panel:hover::before { opacity: 1; }
+.snl-panel.red:hover  { box-shadow: 0 0 30px rgba(255,45,58,0.06); }
+.snl-panel.blue:hover { box-shadow: 0 0 30px rgba(0,212,255,0.06); }
+
+.snl-panel-hdr {
+  display: flex; align-items: center; gap: 0.7rem;
+  padding: 0.85rem 1.1rem;
+  border-bottom: 1px solid var(--border);
+  background: rgba(255,255,255,0.015);
+  flex-shrink: 0;
+}
+.snl-panel-icon {
+  width: 34px; height: 34px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; flex-shrink: 0;
+}
+.snl-panel-icon.red  { background:rgba(255,45,58,0.12); border:1px solid rgba(255,45,58,0.2); }
+.snl-panel-icon.blue { background:rgba(0,212,255,0.1);  border:1px solid rgba(0,212,255,0.2); }
+
+.snl-panel-title-wrap { flex: 1; min-width: 0; }
+.snl-panel-title {
+  font-family: var(--font-ui); font-size: 0.9rem; font-weight: 700;
+  color: var(--white); letter-spacing: 0.02em; line-height: 1.2;
+}
+.snl-panel-sub {
+  font-family: var(--font-mono); font-size: 0.65rem;
+  color: var(--muted); letter-spacing: 0.06em; margin-top: 1px;
+}
+.snl-panel-tag {
+  font-family: var(--font-mono); font-size: 0.62rem;
+  padding: 2px 7px; border-radius: 3px;
+  letter-spacing: 0.06em; flex-shrink: 0;
+}
+.snl-panel-tag.red   { background:rgba(255,45,58,0.12); color:var(--red);   border:1px solid rgba(255,45,58,0.2); }
+.snl-panel-tag.blue  { background:rgba(0,212,255,0.1);  color:var(--blue);  border:1px solid rgba(0,212,255,0.2); }
+.snl-panel-tag.green { background:rgba(0,255,136,0.08); color:var(--green); border:1px solid rgba(0,255,136,0.2); }
+
+.snl-panel-body {
+  padding: 1.1rem; flex: 1;
+  display: flex; flex-direction: column; gap: 0.8rem;
+}
+
+/* ── FORM ELEMENTS ──────────────────────────────── */
+.snl-field-label {
+  font-family: var(--font-mono); font-size: 0.68rem;
+  color: var(--muted); letter-spacing: 0.06em; margin-bottom: 0.3rem;
+}
+.snl-inp {
+  width: 100%;
+  background: rgba(2,4,9,0.8);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 7px; color: var(--text2);
+  padding: 0.6rem 0.85rem;
+  font-family: var(--font-mono); font-size: 0.8rem;
+  transition: border-color 0.2s, box-shadow 0.2s; outline: none;
+}
+.snl-inp:focus       { border-color:rgba(255,255,255,0.2); box-shadow:0 0 0 2px rgba(255,255,255,0.04); }
+.snl-inp.red:focus   { border-color:rgba(255,45,58,0.5);   box-shadow:0 0 0 2px rgba(255,45,58,0.08); }
+.snl-inp.blue:focus  { border-color:rgba(0,212,255,0.5);   box-shadow:0 0 0 2px rgba(0,212,255,0.08); }
+.snl-inp::placeholder { color: var(--muted); }
+
+.snl-textarea {
+  width: 100%;
+  background: rgba(2,4,9,0.8);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 7px; color: var(--text2);
+  padding: 0.6rem 0.85rem;
+  font-family: var(--font-mono); font-size: 0.78rem;
+  resize: vertical; min-height: 90px; outline: none;
+  transition: border-color 0.2s;
+}
+.snl-textarea:focus { border-color: rgba(255,45,58,0.4); }
+.snl-textarea::placeholder { color: var(--muted); }
+.snl-textarea.green-text { color: var(--green); min-height: 100px; }
+
+.snl-select-wrap { position: relative; }
+.snl-select-wrap::after {
+  content: '▾'; position: absolute; right: 0.8rem; top: 50%;
+  transform: translateY(-50%); color: var(--muted);
+  font-size: 0.75rem; pointer-events: none;
+}
+.snl-sel {
+  width: 100%;
+  background: rgba(2,4,9,0.8);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 7px; color: var(--text2);
+  padding: 0.6rem 2rem 0.6rem 0.85rem;
+  font-family: var(--font-mono); font-size: 0.78rem;
+  appearance: none; cursor: pointer; outline: none;
+}
+
+/* ── BUTTONS ────────────────────────────────────── */
+.snl-btn-row { display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; }
+.snl-btn {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.5rem 1.1rem; border-radius: 6px; border: none;
+  font-family: var(--font-ui); font-size: 0.82rem; font-weight: 700;
+  letter-spacing: 0.06em; cursor: pointer; transition: all 0.18s; white-space: nowrap;
+}
+.snl-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.snl-btn-red  {
+  background: var(--red); color: #fff;
+  box-shadow: 0 3px 12px rgba(255,45,58,0.3);
+}
+.snl-btn-red:hover:not(:disabled)  { transform:translateY(-1px); box-shadow:0 6px 20px rgba(255,45,58,0.4); }
+.snl-btn-blue {
+  background: var(--blue); color: #020409;
+  box-shadow: 0 3px 12px rgba(0,212,255,0.25);
+}
+.snl-btn-blue:hover:not(:disabled) { transform:translateY(-1px); box-shadow:0 6px 20px rgba(0,212,255,0.35); }
+.snl-btn-ghost {
+  background: rgba(255,255,255,0.05); color: var(--text);
+  border: 1px solid var(--border);
+}
+.snl-btn-ghost:hover:not(:disabled) { background:rgba(255,255,255,0.09); color:var(--text2); }
+.snl-btn-sm { padding: 0.35rem 0.8rem; font-size: 0.75rem; }
+
+/* ── STATUS PILL ────────────────────────────────── */
+.snl-status-pill {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: var(--font-mono); font-size: 0.67rem;
+  padding: 0.22rem 0.65rem; border-radius: 4px; letter-spacing: 0.06em;
+}
+.snl-status-pill.idle    { background:rgba(58,68,88,0.3);   color:var(--muted);  border:1px solid rgba(58,68,88,0.5); }
+.snl-status-pill.running { background:rgba(255,215,0,0.1);  color:var(--yellow); border:1px solid rgba(255,215,0,0.3); }
+.snl-status-pill.done    { background:rgba(0,255,136,0.08); color:var(--green);  border:1px solid rgba(0,255,136,0.3); }
+.snl-status-pill.error   { background:rgba(255,45,58,0.1);  color:var(--red);    border:1px solid rgba(255,45,58,0.3); }
+.snl-sp-dot {
+  width:5px; height:5px; border-radius:50%;
+  background:currentColor; flex-shrink:0;
+}
+.snl-status-pill.running .snl-sp-dot { animation: snl-pulse-dot 1s ease-in-out infinite; }
+
+/* ── TERMINAL ───────────────────────────────────── */
+.snl-terminal {
+  background: #010307;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px; padding: 0.9rem 1rem;
+  max-height: 200px; overflow-y: auto;
+  font-family: var(--font-mono); font-size: 0.75rem;
+  line-height: 1.7; flex: 1;
+}
+.snl-terminal.sm { max-height: 140px; }
+.snl-terminal::-webkit-scrollbar { width: 3px; }
+.snl-terminal::-webkit-scrollbar-track { background: transparent; }
+.snl-terminal::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 2px; }
+
+.snl-t-line { display: flex; gap: 0.5rem; }
+.snl-t-prompt { color:var(--muted); user-select:none; }
+.snl-t-cmd    { color:var(--white); }
+.snl-t-ok     { color:var(--green); }
+.snl-t-warn   { color:var(--yellow); }
+.snl-t-err    { color:var(--red); }
+.snl-t-info   { color:var(--blue); }
+.snl-t-key    { color:var(--muted); }
+.snl-t-val    { color:var(--text2); }
+.snl-t-sep    { color:rgba(255,255,255,0.1); }
+.snl-t-dim    { color:rgba(255,255,255,0.2); }
+.snl-t-cursor {
+  display:inline-block; width:8px; height:1.1em;
+  background:var(--green); vertical-align:bottom;
+  animation: snl-blink 1.1s step-end infinite; margin-left:2px;
+}
+@keyframes snl-blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* ── FINDINGS TABLE ─────────────────────────────── */
+.snl-findings {
+  border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+}
+.snl-finding-hdr {
+  display: flex; gap: 0.8rem; padding: 0.4rem 0.8rem;
+  background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono); font-size: 0.63rem;
+  color: var(--muted); letter-spacing: 0.06em;
+}
+.snl-finding-row {
+  display: flex; align-items: center; gap: 0.8rem;
+  padding: 0.45rem 0.8rem;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  font-family: var(--font-mono); font-size: 0.75rem;
+  transition: background 0.15s;
+}
+.snl-finding-row:last-child { border-bottom: none; }
+.snl-finding-row:hover { background: rgba(255,255,255,0.02); }
+.snl-fr-port  { color:var(--blue);  min-width:70px; }
+.snl-fr-svc   { color:var(--text2); flex:1; }
+.snl-fr-state { margin-left:auto; }
+.snl-fr-score { min-width:50px; text-align:right; }
+
+/* ── BADGE ──────────────────────────────────────── */
+.snl-badge {
+  font-family: var(--font-mono); font-size: 0.63rem;
+  padding: 1px 6px; border-radius: 3px;
+  letter-spacing: 0.04em; font-weight: 600;
+}
+.snl-b-ok   { background:rgba(0,255,136,0.12); color:var(--green); }
+.snl-b-warn { background:rgba(255,215,0,0.12);  color:var(--yellow); }
+.snl-b-err  { background:rgba(255,45,58,0.12);  color:var(--red); }
+.snl-b-info { background:rgba(0,212,255,0.1);   color:var(--blue); }
+.snl-b-dim  { background:rgba(255,255,255,0.06);color:var(--muted); }
+
+/* ── METRIC WIDGETS ─────────────────────────────── */
+.snl-metrics-row {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 0.8rem; margin-bottom: 1.4rem;
+}
+@media(max-width:900px){ .snl-metrics-row{ grid-template-columns: repeat(2,1fr); } }
+
+.snl-metric-card {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 1rem 1.1rem;
+  position: relative; overflow: hidden;
+}
+.snl-metric-card::after {
+  content: ''; position: absolute; bottom:0; left:0; right:0;
+  height: 2px; background: var(--m-color, var(--muted)); opacity: 0.5;
+}
+.snl-metric-label {
+  font-family:var(--font-mono); font-size:0.63rem;
+  color:var(--muted); letter-spacing:0.08em; margin-bottom:0.4rem;
+}
+.snl-metric-value {
+  font-family:var(--font-hdr); font-size:1.7rem;
+  font-weight:700; line-height:1;
+}
+.snl-metric-sub {
+  font-family:var(--font-mono); font-size:0.65rem;
+  color:var(--muted); margin-top:0.3rem;
+}
+
+/* ── SCORE RING ─────────────────────────────────── */
+.snl-score-widget {
+  display: flex; align-items: center; gap: 1.2rem;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border);
+  border-radius: 10px; padding: 1rem;
+}
+.snl-score-ring { position:relative; width:72px; height:72px; flex-shrink:0; }
+.snl-score-ring svg { transform: rotate(-90deg); }
+.snl-score-center {
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  flex-direction:column;
+  font-family:var(--font-hdr); font-size:1rem; font-weight:700; line-height:1;
+}
+.snl-score-center small {
+  font-size:0.5rem; color:var(--muted); letter-spacing:0.1em; margin-top:2px;
+}
+.snl-score-meta h4 { font-size:1rem; font-weight:700; color:var(--white); margin-bottom:0.2rem; }
+.snl-score-meta p  { font-family:var(--font-mono); font-size:0.7rem; color:var(--muted); }
+
+/* ── PHASE BADGE ────────────────────────────────── */
+.snl-phase-badge {
+  display:inline-flex; align-items:center; gap:0.4rem;
+  font-family:var(--font-mono); font-size:0.63rem;
+  letter-spacing:0.08em; padding:0.2rem 0.7rem; border-radius:3px;
+}
+.snl-phase-badge.red  { background:rgba(255,45,58,0.1);  color:var(--red);  border:1px solid rgba(255,45,58,0.2); }
+.snl-phase-badge.blue { background:rgba(0,212,255,0.08); color:var(--blue); border:1px solid rgba(0,212,255,0.2); }
+
+/* ── ALERT FEED ─────────────────────────────────── */
+.snl-alert-feed { display:flex; flex-direction:column; gap:0.5rem; }
+.snl-alert-item {
+  display:flex; gap:0.8rem; align-items:flex-start;
+  padding:0.6rem 0.8rem;
+  background:rgba(255,255,255,0.02);
+  border:1px solid var(--border); border-radius:7px;
+  font-family:var(--font-mono); font-size:0.74rem;
+  transition:border-color 0.2s;
+}
+.snl-alert-item:hover { border-color:var(--border2); }
+.snl-alert-sev { width:6px; height:6px; border-radius:50%; margin-top:5px; flex-shrink:0; }
+.snl-sev-crit  { background:var(--red);    box-shadow:0 0 6px var(--red); }
+.snl-sev-high  { background:#ff7700;       box-shadow:0 0 6px #ff7700; }
+.snl-sev-med   { background:var(--yellow); box-shadow:0 0 6px var(--yellow); }
+.snl-sev-low   { background:var(--blue);   box-shadow:0 0 6px var(--blue); }
+.snl-alert-text { flex:1; color:var(--text2); line-height:1.5; }
+.snl-alert-text strong { color:var(--white); }
+.snl-alert-time { color:var(--muted); font-size:0.65rem; flex-shrink:0; }
+
+/* ── DIVIDER ────────────────────────────────────── */
+.snl-divider { border:none; border-top:1px solid var(--border); margin:0.5rem 0; }
+
+/* ── REPORT CARD ────────────────────────────────── */
+.snl-report-card {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0.85rem 1rem;
+  background:rgba(255,255,255,0.02);
+  border:1px solid var(--border); border-radius:8px; gap:1rem;
+  transition:border-color 0.2s, transform 0.15s;
+}
+.snl-report-card:hover { border-color:var(--border2); transform:translateY(-1px); }
+.snl-report-icon { font-size:1.3rem; flex-shrink:0; }
+.snl-report-meta { flex:1; min-width:0; }
+.snl-report-meta h5 {
+  font-size:0.85rem; font-weight:700; color:var(--white);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.snl-report-meta small { font-family:var(--font-mono); font-size:0.65rem; color:var(--muted); }
+.snl-report-actions { display:flex; gap:0.5rem; align-items:center; }
+
+/* ── FORENSICS FIELDS ───────────────────────────── */
+.snl-forensic-field {
+  display:flex; gap:0.8rem; padding:0.4rem 0;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  font-family:var(--font-mono); font-size:0.74rem;
+}
+.snl-forensic-field:last-child { border-bottom:none; }
+.snl-ff-key { color:var(--muted); min-width:90px; flex-shrink:0; }
+.snl-ff-val { color:var(--text2); word-break:break-all; }
+.snl-ff-val.danger { color:var(--red); }
+.snl-ff-val.warn   { color:var(--yellow); }
+.snl-ff-val.ok     { color:var(--green); }
+.snl-ff-val.info   { color:var(--blue); }
+
+/* ── PROGRESS BAR ───────────────────────────────── */
+.snl-prog-bar-wrap { margin:0.5rem 0; }
+.snl-prog-bar-label {
+  display:flex; justify-content:space-between;
+  font-family:var(--font-mono); font-size:0.68rem;
+  color:var(--muted); margin-bottom:0.3rem;
+}
+.snl-prog-bar {
+  height:4px; background:rgba(255,255,255,0.06);
+  border-radius:2px; overflow:hidden;
+}
+.snl-prog-bar-fill { height:100%; border-radius:2px; transition:width 0.8s ease; }
+
+/* ── SIDEBAR LAYOUT (reports page) ─────────────── */
+.snl-sidebar-layout {
+  display:grid; grid-template-columns:280px 1fr; gap:1.2rem;
+}
+@media(max-width:900px){ .snl-sidebar-layout{ grid-template-columns:1fr; } }
+
+.snl-sidebar-card {
+  background:var(--bg3); border:1px solid var(--border);
+  border-radius:12px; overflow:hidden;
+}
+.snl-sidebar-hdr {
+  padding:0.8rem 1rem; border-bottom:1px solid var(--border);
+  font-family:var(--font-mono); font-size:0.7rem;
+  color:var(--muted); letter-spacing:0.08em;
+  background:rgba(255,255,255,0.015);
+}
+.snl-sidebar-item {
+  display:flex; align-items:center; gap:0.7rem;
+  padding:0.7rem 1rem;
+  border-bottom:1px solid rgba(255,255,255,0.03);
+  cursor:pointer; transition:background 0.15s;
+  font-family:var(--font-mono); font-size:0.75rem;
+}
+.snl-sidebar-item:last-child { border-bottom:none; }
+.snl-sidebar-item:hover { background:rgba(255,255,255,0.03); }
+.snl-sidebar-item.active {
+  background:rgba(0,212,255,0.05); border-left:2px solid var(--blue);
+}
+.snl-si-dot  { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+.snl-si-name { color:var(--text2); flex:1; }
+.snl-si-time { color:var(--muted); font-size:0.65rem; }
+
+/* ── TOGGLE SWITCH ──────────────────────────────── */
+.snl-toggle-row {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0.5rem 0;
+  font-family:var(--font-mono); font-size:0.75rem; color:var(--text);
+}
+.snl-toggle { position:relative; width:36px; height:18px; cursor:pointer; }
+.snl-toggle input { opacity:0; width:0; height:0; position:absolute; }
+.snl-toggle-slider {
+  position:absolute; inset:0;
+  background:rgba(255,255,255,0.1);
+  border-radius:9px; border:1px solid var(--border);
+  transition:all 0.2s;
+}
+.snl-toggle-slider::before {
+  content:''; position:absolute;
+  width:12px; height:12px; border-radius:50%;
+  background:var(--muted); top:2px; left:2px; transition:all 0.2s;
+}
+.snl-toggle input:checked + .snl-toggle-slider {
+  background:rgba(255,45,58,0.2); border-color:rgba(255,45,58,0.4);
+}
+.snl-toggle input:checked + .snl-toggle-slider::before {
+  transform:translateX(18px); background:var(--red);
+}

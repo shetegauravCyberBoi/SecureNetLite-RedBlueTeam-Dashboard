@@ -13,10 +13,8 @@ def run_interactsh():
         "raw_output": "",
         "stderr": ""
     }
-
     try:
         tmp_path = tempfile.NamedTemporaryFile(delete=False).name
-
         cmd = [
             "interactsh-client",
             "-json",
@@ -25,11 +23,9 @@ def run_interactsh():
             "-poll-interval", "10",
             "-poll-duration", "20",
         ]
-
         print(f"[+] Running Interactsh with session ID: {session_id}")
         proc = subprocess.run(cmd, timeout=30, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         result["stderr"] = proc.stderr.decode()
-
         if os.path.exists(tmp_path):
             with open(tmp_path, "r") as f:
                 lines = f.readlines()
@@ -46,10 +42,8 @@ def run_interactsh():
                     except:
                         continue
             os.remove(tmp_path)
-
     except subprocess.TimeoutExpired:
         result["error"] = "Timeout expired while waiting for Interactsh"
     except Exception as e:
         result["error"] = str(e)
-
     return result

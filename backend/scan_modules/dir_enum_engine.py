@@ -10,7 +10,6 @@ COMMON_FILES = [
     "index.php",
     "favicon.ico"
 ]
-
 COMMON_DIRS = [
     "admin",
     "login",
@@ -19,18 +18,14 @@ COMMON_DIRS = [
     "api",
     "assets"
 ]
-
-
 async def _run(url: str, wordlist: List[str]) -> List[Dict]:
     results = []
-
     async with httpx.AsyncClient(
         follow_redirects=True,
         timeout=5
     ) as client:
         for word in wordlist:
             target = f"{url}/{word}"
-
             try:
                 r = await client.get(target)
 
@@ -39,26 +34,19 @@ async def _run(url: str, wordlist: List[str]) -> List[Dict]:
                     "url": target,
                     "status": r.status_code
                 })
-
             except httpx.RequestError:
                 results.append({
                     "path": word,
                     "url": target,
                     "status": "ERR"
                 })
-
     return results
 
 
 async def run_dir_enum(url: str, mode: str = "files") -> List[Dict]:
-    """
-    mode = files | dirs
-    """
     url = url.rstrip("/")
-
     if mode == "files":
         wordlist = COMMON_FILES
     else:
         wordlist = COMMON_DIRS
-
     return await _run(url, wordlist)
