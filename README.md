@@ -6,6 +6,7 @@ A comprehensive web-based security scanning and digital forensics platform built
 ![Python](https://img.shields.io/badge/python-3.8+-green)
 ![React](https://img.shields.io/badge/react-17.0+-61dafb)
 ![License](https://img.shields.io/badge/license-MIT-yellow)
+Preview ink : https://secure-net-lite-red-blue-team-dashb.vercel.app/
 
 ---
 
